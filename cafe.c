@@ -25,7 +25,7 @@ Pagante *frontP = NULL;
 Pagante *rearP = NULL;
 int next_id = 1;
 
-//prot√≥tipos de fun√ß√£o
+//protÛtipÛs
 void inserir_participante();
 void editar_participante();
 void ler_participantes();
@@ -42,7 +42,7 @@ int main() {
 
     do {
         printf("\nPressione 'a' para inserir novo participante, 'e' para editar participante");
-        printf(" 'l' para ler todos os participantes, 'i' para inserir contribuintes, 'c' para ler contribuintes ");
+        printf(" 'l' para ler todos os participantes, 'i' para inserir contribuintes, 'g' para carregar contribuintes, 'c' para ler contribuintes ");
          printf(" ou 'q' para sair: ");
         scanf("%c", &escolha);
 
@@ -70,11 +70,11 @@ int main() {
                 printf("Saindo...\n");
                 break;
             default:
-                printf("Op√ß√£o inv√°lida. Tente novamente.\n");
+                printf("OpÁ„o inv·lida. Tente novamente.\n");
         }
     } while (escolha != 'q');
 
-    liberar_memoria(); //chamada de fun√ß√£o que libera mem√≥ria restante
+    liberar_memoria(); //chamada de funÁ„o que libera memÛria restante
     return 0;
 }
 
@@ -169,7 +169,7 @@ void inserir_participante() {
 
     Participante *this = malloc(sizeof(Participante));
     if (this == NULL) {
-        printf("Erro ao alocar mem√≥ria para o participante.\n");
+        printf("Erro ao alocar memÛria para o participante.\n");
         exit(1);
     }
     this->next = NULL;
@@ -196,7 +196,7 @@ void inserir_participante() {
             strcpy(this->curso, "GE");
             break;
         default:
-            printf("Op√ß√£o de curso inv√°lida.\n");
+            printf("OpÁ„o de curso inv·lida.\n");
             free(this);
             return;
     }
@@ -239,37 +239,37 @@ void inserir_contribuinte() {
     Participante *curr = front;
     Pagante *this = malloc(sizeof(Pagante));
     if (!this) {
-        printf("Erro de aloca√ß√£o de mem√≥ria");
+        printf("Erro de alocaÁ„o de memÛria");
         exit(1);
     }
     while (curr != NULL) {
         if (curr->id == id) {
             this->id = id;
-            printf("Qual o m√™s da contribui√ß√£o? ");
+            printf("Qual o mÍs da contribuiÁ„o? ");
             scanf("%d", &mes);
            while(mes < 0 || mes > 12){
-            printf("\nM√™s invalido, digite novamente o m√™s da contribui√ß√£o: ");
+            printf("\nMÍs invalido, digite novamente o mÍs da contribuiÁ„o: ");
             scanf("%d", &mes);
             }
 
             limpar_buffer();
             this->mes = mes;
 
-            printf("Qual o ano em da contribui√ß√£o? ");
+            printf("Qual o ano em da contribuiÁ„o? ");
             scanf("%d", &ano);
               while(ano > 2024){
-                printf("\nAno invalido, digite novamente o ano da contribui√ß√£o: ");
+                printf("\nAno invalido, digite novamente o ano da contribuiÁ„o: ");
                 scanf("%d", &ano);
               }
             limpar_buffer();
             this->ano = ano;
 
-            printf("Qual o valor em reais da contribui√ß√£o? ");
+            printf("Qual o valor em reais da contribuiÁ„o? ");
             scanf("%f", &valor);
             limpar_buffer();
             this->valor = valor;
 
-            this->next = NULL; // Gambiarra feita pra verificar se a pr√≥xima estrutura est√° vazia
+            this->next = NULL; // Gambiarra feita pra verificar se a prÛxima estrutura esta vazia
 
             if (rearP == NULL) {
                 frontP = this;
@@ -280,12 +280,12 @@ void inserir_contribuinte() {
             }
             salvar_contribuintes();
             salvar_contribuintes_por_curso();
-            printf("Contribui√ß√£o registrada com sucesso!");
+            printf("ContribuiÁ„o registrada com sucesso!");
             return;
         }
         curr = curr->next;
     }
-    printf("ID n√£o encontrado!");
+    printf("ID n„o encontrado!");
 }
 
 
@@ -316,7 +316,7 @@ void editar_participante() {
                     strcpy(curr->curso, "GE");
                     break;
                 default:
-                    printf("Op√ß√£o de curso inv√°lida.\n");
+                    printf("OpÁ„o de curso invalida.\n");
                     return;
             }
 
@@ -348,7 +348,7 @@ void ler_participantes() {
     printf("\nLista de participantes:\n");
     int id, ano;
     char nome[120], curso[120];
-    while (fscanf(handler, "%d,%[^,],%[^,],%d\n", &id, nome, curso, &ano) == 4) // Gambiarra n√∫mero 2 que precisei fazer para verificar se s√≥ os 4 inputs pedidos est√£o sendo passados por participantes
+    while (fscanf(handler, "%d,%[^,],%[^,],%d\n", &id, nome, curso, &ano) == 4) // Gambiarra n∫ 2 que precisei fazer para verificar se os 4 inputs pedidos est„o sendo passados por participantes
   {
         printf("ID: %d, Nome: %s, Curso: %s, Ano: %d\n", id, nome, curso, ano);
     }
@@ -367,9 +367,9 @@ void ler_contribuintes() {
     int id, mes, ano;
     float valor;
     
-    while (fscanf(handler, "%d,%f,%d,%d\n", &id, &valor, &mes, &ano) == 4) // Gambiarra n√∫mero 2.5 que precisei fazer para verificar se s√≥ os 4 inputs pedidos est√£o sendo passados por participantes
+    while (fscanf(handler, "%d,%f,%d,%d\n", &id, &valor, &mes, &ano) == 4) // Gambiarra n˙mero 2.5 que precisei fazer para verificar se s„o os 4 inputs pedidos est„o sendo passados por participantes
   {
-        printf("Membro de ID: %d,Contribuiu com valor de: R$%0.2f no M√™s: %d, durante o ano de %d\n", id, valor, mes, ano);
+        printf("Membro de ID: %d,Contribuiu com valor de: R$%0.2f no MÍs: %d, durante o ano de %d\n", id, valor, mes, ano);
     }
 
     fclose(handler);
@@ -383,7 +383,7 @@ void limpar_buffer() {
 }
 
 void liberar_memoria() {
-    // Liberar mem√≥ria em participante 
+    // Liberar memÛria em participante 
     Participante *curr_participante = front;
     while (curr_participante != NULL) {
         Participante *temp_participante = curr_participante;
@@ -391,7 +391,7 @@ void liberar_memoria() {
         free(temp_participante);
     }
     
-    // Liberar mem√≥ria em pagante
+    // Liberar memÛria em pagante
     Pagante *curr_contribuinte = frontP;
     while (curr_contribuinte != NULL) {
         Pagante *temp_contribuinte = curr_contribuinte;
