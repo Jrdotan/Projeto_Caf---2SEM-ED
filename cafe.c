@@ -35,6 +35,7 @@ void limpar_buffer();
 void inserir_contribuinte();
 void salvar_contribuintes_por_curso();
 void liberar_memoria();
+void carregar_participantes();
 
 int main() {
     char escolha;
@@ -61,6 +62,10 @@ int main() {
             case 'i':
                 inserir_contribuinte();
                 break;
+            case 'g':
+            	liberar_memoria();
+            	carregar_participantes();
+            	break;
             case 'q':
                 printf("Saindo...\n");
                 break;
@@ -399,5 +404,46 @@ void liberar_memoria() {
     rear = NULL;
     frontP = NULL;
     rearP = NULL;
+}
+
+void carregar_participantes() {
+    FILE *handler = fopen("participantes.txt", "rt");
+    if (handler == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        return;
+    }
+
+
+    int id, ano;
+    char nome[120], curso[120];
+
+    while (fscanf(handler, "%d,%[^,],%[^,],%d\n", &id, nome, curso, &ano) == 4) {
+        Participante *novo_participante = malloc(sizeof(Participante));
+        if (novo_participante == NULL) {
+            printf("Erro ao alocar memória para participante.\n");
+            fclose(handler);
+            liberar_memoria();
+            exit(1);
+        }
+
+        
+        novo_participante->id = id;
+        strcpy(novo_participante->nome, nome);
+        strcpy(novo_participante->curso, curso);
+        novo_participante->ano = ano;
+        novo_participante->next = NULL;
+
+  
+        if (front == NULL) {
+            front = novo_participante;
+            rear = novo_participante;
+        } else {
+            rear->next = novo_participante;
+            rear = novo_participante;
+        }
+    }
+
+    fclose(handler);
+    printf("Participantes carregados com sucesso.\n");
 }
 
